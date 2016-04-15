@@ -2,6 +2,21 @@ import java.math.BigDecimal;
 
 class Service
 {
+    String callMethod(String cmd, String text)
+    {
+        switch(cmd)
+        {
+            case "1": case "2": case "3": case "4": case "5":
+            case "6": case "7": case "8": case "9": case "0":
+                      return append(cmd,text);
+
+            case "C": return clear();
+
+            case "+/-": return setSign(text);
+            case "sqrt": return sqrt(text);
+        }
+        return text;
+    }
     String backSpace(String text)
     {
         if(text.length() > 1)
@@ -21,7 +36,7 @@ class Service
 
     String append(String cmd, String text)
     {
-        return cmd + text;
+        return text + cmd;
     }
 
     String setSign(String text)
@@ -46,8 +61,12 @@ class Service
         if(text.length() > 0)
         {
             Double num = Double.parseDouble(text);
-            Double result = Math.sqrt(num);
-            return result.toString();
+            if(num > 1)
+            {
+                Double result = Math.sqrt(num);
+                return result.toString();
+            }
+            else return "math error";
         }
 
         else return "";

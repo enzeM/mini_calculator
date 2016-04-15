@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 class CalFrame extends JFrame
 {
     JButton num0Btn = new JButton("0");
@@ -36,36 +38,38 @@ class CalFrame extends JFrame
     JButton funCBtn = new JButton("C");
 
     JTextField screenFld = new JTextField(10);
+
+    private Service calService = new Service();
     public void init()
     {
         JPanel otherBtnPanel = new JPanel(); 
         otherBtnPanel.setLayout(new GridLayout(4,5));
-        otherBtnPanel.add(num7Btn); 
-        otherBtnPanel.add(num8Btn); 
-        otherBtnPanel.add(num9Btn); 
-        otherBtnPanel.add(opDivBtn); 
-        otherBtnPanel.add(opSqrtBtn); 
-        otherBtnPanel.add(num4Btn); 
-        otherBtnPanel.add(num5Btn); 
-        otherBtnPanel.add(num6Btn); 
-        otherBtnPanel.add(opMulBtn); 
-        otherBtnPanel.add(opModBtn); 
-        otherBtnPanel.add(num1Btn); 
-        otherBtnPanel.add(num2Btn); 
-        otherBtnPanel.add(num3Btn); 
-        otherBtnPanel.add(opSubBtn); 
-        otherBtnPanel.add(opInveBtn); 
-        otherBtnPanel.add(num0Btn); 
-        otherBtnPanel.add(opSignBtn); 
-        otherBtnPanel.add(numPtBtn); 
-        otherBtnPanel.add(opAddBtn); 
-        otherBtnPanel.add(opEqlBtn); 
+        otherBtnPanel.add(num7Btn);    num7Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(num8Btn);    num8Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(num9Btn);    num9Btn.addActionListener(new CalListener()); 
+        otherBtnPanel.add(opDivBtn);   opDivBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(opSqrtBtn);  opSqrtBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(num4Btn);    num4Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(num5Btn);    num5Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(num6Btn);    num6Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(opMulBtn);   opMulBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(opModBtn);   opModBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(num1Btn);    num1Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(num2Btn);    num2Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(num3Btn);    num3Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(opSubBtn);   opSubBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(opInveBtn);  opInveBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(num0Btn);    num0Btn.addActionListener(new CalListener());
+        otherBtnPanel.add(opSignBtn);  opSignBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(numPtBtn);   numPtBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(opAddBtn);   opAddBtn.addActionListener(new CalListener());
+        otherBtnPanel.add(opEqlBtn);   opEqlBtn.addActionListener(new CalListener());
 
         JPanel resultBtnPanel = new JPanel();
         resultBtnPanel.setLayout(new GridLayout(1,3));
-        resultBtnPanel.add(funBackBtn);
-        resultBtnPanel.add(funCeBtn);
-        resultBtnPanel.add(funCBtn);
+        resultBtnPanel.add(funBackBtn); funBackBtn.addActionListener(new CalListener());
+        resultBtnPanel.add(funCeBtn);   funCeBtn.addActionListener(new CalListener());
+        resultBtnPanel.add(funCBtn);    funCBtn.addActionListener(new CalListener());
 
         JPanel centrePanel = new JPanel();
         centrePanel.setLayout(new BorderLayout());
@@ -89,6 +93,20 @@ class CalFrame extends JFrame
         setVisible(true);
         pack();
     }   
+    
+    //inner class
+    class CalListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            String command = ((JButton)e.getSource()).getActionCommand();
+            String text = screenFld.getText();
+            String result = calService.callMethod(command, text);
+            screenFld.setText(result);
+            //System.out.println("Active button: "+command);
+        }
+    }
 
     public static void main(String[] args)
     {
