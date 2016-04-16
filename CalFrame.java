@@ -78,10 +78,10 @@ class CalFrame extends JFrame
 
         JPanel westPanel = new JPanel();
         westPanel.setLayout(new GridLayout(4,1));
-        westPanel.add(funMcBtn);
-        westPanel.add(funMrBtn);
-        westPanel.add(funMsBtn);
-        westPanel.add(funMpBtn);
+        westPanel.add(funMcBtn);  funMcBtn.addActionListener(new CalListener());
+        westPanel.add(funMrBtn);  funMrBtn.addActionListener(new CalListener());
+        westPanel.add(funMsBtn);  funMsBtn.addActionListener(new CalListener());
+        westPanel.add(funMpBtn);  funMpBtn.addActionListener(new CalListener());
 
         setLayout(new BorderLayout());
         add(centrePanel, BorderLayout.CENTER);
@@ -100,11 +100,18 @@ class CalFrame extends JFrame
         @Override
         public void actionPerformed(ActionEvent e)
         {
+            //clear error cmd before next operation
+            if(screenFld.getText().equals("cmd not found") ||
+                screenFld.getText().equals("math error"))
+            {
+                screenFld.setText("");
+            }
+
             String command = ((JButton)e.getSource()).getActionCommand();
             String text = screenFld.getText();
             String result = calService.callMethod(command, text);
             screenFld.setText(result);
-            //System.out.println("Active button: "+command);
+            System.out.println("Active button: "+command);
         }
     }
 
