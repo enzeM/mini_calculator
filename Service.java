@@ -23,7 +23,7 @@ class Service
                     out.println("enter clear");
                     text = clear();
                 }
-                System.out.println("last cmd"+lastOp);
+                System.out.println("last cmd "+lastOp);
                 setLastOp(cmd);
                 return append(cmd,text);
 
@@ -112,6 +112,7 @@ class Service
                            return Double.toString(result);
                        }
                        else return "math error";
+
             default: return "math error";
         }
     }
@@ -140,7 +141,7 @@ class Service
 
     String setSign(String text)
     {
-        if(text.length() > 1)
+        if(text.length() > 0)
         {
             if(text.charAt(0) != '-')
             {
@@ -152,7 +153,7 @@ class Service
                 return text.substring(1);
             }
         }
-        else return "";
+        return "";
     }
 
     String getSqrt(String text)
