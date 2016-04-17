@@ -32,6 +32,7 @@ class CalFrame extends JFrame
     JButton funMrBtn = new JButton("MR");
     JButton funMsBtn = new JButton("MS");
     JButton funMpBtn = new JButton("M+");
+    JButton funMmBtn = new JButton("M-");
 
     JButton funBackBtn = new JButton("Back");
     JButton funCeBtn = new JButton("CE");
@@ -77,11 +78,12 @@ class CalFrame extends JFrame
         centrePanel.add(otherBtnPanel, BorderLayout.CENTER);
 
         JPanel westPanel = new JPanel();
-        westPanel.setLayout(new GridLayout(4,1));
+        westPanel.setLayout(new GridLayout(5,1));
         westPanel.add(funMcBtn);  funMcBtn.addActionListener(new CalListener());
         westPanel.add(funMrBtn);  funMrBtn.addActionListener(new CalListener());
         westPanel.add(funMsBtn);  funMsBtn.addActionListener(new CalListener());
         westPanel.add(funMpBtn);  funMpBtn.addActionListener(new CalListener());
+        westPanel.add(funMmBtn);  funMmBtn.addActionListener(new CalListener());
 
         setLayout(new BorderLayout());
         add(centrePanel, BorderLayout.CENTER);
@@ -100,9 +102,7 @@ class CalFrame extends JFrame
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            //clear error cmd before next operation
-            if(screenFld.getText().equals("cmd not found") ||
-                screenFld.getText().equals("math error"))
+            if(shouldClearScreen(screenFld, calService))
             {
                 screenFld.setText("");
             }
@@ -113,6 +113,26 @@ class CalFrame extends JFrame
             screenFld.setText(result);
             System.out.println("Active button: "+command);
         }
+    }
+
+    //decide whether need to clear the screen before next action
+    private boolean shouldClearScreen(JTextField screen, Service service)
+    {
+        String screenText = screen.getText();
+        String lastAction = service.getLastOper();
+        if(screenText.equals("cmd not found") || 
+                screenText.equals("math error"))
+        {
+            return true;
+        }
+
+        if(lastAction.equals("MC") || 
+                lastAction.equals("MR") ||
+                lastAction.equals("MS"))
+        {
+            return true;
+        }
+        else return false;
     }
 
     public static void main(String[] args)
