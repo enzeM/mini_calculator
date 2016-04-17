@@ -19,5 +19,4 @@ or
 ant run //build jar file and run it
 ```
 
-
-If you do not have "Apache ant" please use [java terminal command](http://introcs.cs.princeton.edu/java/15inout/mac-cmd.html) or you may run this project in an java IDE such as [eclipse](https://eclipse.org/downloads/) or [inteliJ](https://www.jetbrains.com/idea/)
+>If you do not have "Apache ant" please use [java terminal command](http://introcs.cs.princeton.edu/java/15inout/mac-cmd.html) or you may run this project in an java IDE such as [eclipse](https://eclipse.org/downloads/) or [inteliJ](https://www.jetbrains.com/idea/)
